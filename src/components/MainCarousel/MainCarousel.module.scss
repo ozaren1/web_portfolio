@@ -1,0 +1,39 @@
+.embla {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 0 10%; /* Отступы для показа соседних слайдов */
+}
+
+.embla__viewport {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.embla__container {
+  display: flex;
+  will-change: transform;
+}
+
+.embla__slide {
+  position: relative;
+  flex: 0 0 70%; /* Показывает центральный слайд, а соседние частично */
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.embla__slide img {
+  width: 100%;
+  height: auto;
+}
+
+.embla__slide h2 {
+  font-family: "Libre Bodoni", serif;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  color: white;
+}

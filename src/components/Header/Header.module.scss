@@ -1,0 +1,17 @@
+.header{
+    font-family: "Kanit", system-ui;
+    font-weight: 400;
+    ul{
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+      align-items: center;
+      padding: 20px 0;
+      font-weight: 500;
+
+    }
+    .logo{
+      font-size: 30px;
+    }
+  }
+ 
