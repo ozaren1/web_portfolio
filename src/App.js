@@ -9,7 +9,6 @@ function App() {
   return (
     <Container>
       <Header/>
-      <Portfolio/>
     </Container>
    
   );
