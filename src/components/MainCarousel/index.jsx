@@ -2,38 +2,24 @@ import React, { useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import styles from'./MainCarousel.module.scss';
 
-const MainCarousel = () => {
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, skipSnaps: false });
+const MainCarousel = ({ slides, initialIndex }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, startIndex: initialIndex });
 
-    // Функция для автопрокрутки
-    const autoScroll = useCallback(() => {
-      if (!emblaApi) return;
-      emblaApi.scrollNext();
-    }, [emblaApi]);
-  
-    useEffect(() => {
-      if (emblaApi) {
-        const interval = setInterval(autoScroll, 4000); // Автопрокрутка каждые 4 секунды
-        return () => clearInterval(interval);
-      }
-    }, [emblaApi, autoScroll]);
+  useEffect(() => {
+    if (emblaApi) {
+      emblaApi.scrollTo(initialIndex, true); // Переход на начальный слайд
+    }
+  }, [emblaApi, initialIndex]);
 
   return (
-    <div className={styles.embla}>
-      <div className={styles.embla__viewport} ref={emblaRef}>
-        <div className={styles.embla__container}>
-          <div className={styles.embla__slide} onClick={() => emblaApi && emblaApi.scrollTo(0)}>
-            <img src="assets/image/image1.jpg" alt="Slide 1" />
-            <h2>Melanie</h2>
-          </div>
-          <div className={styles.embla__slide} onClick={() => emblaApi && emblaApi.scrollTo(1)}>
-            <img src="assets/image/image2.jpg" alt="Slide 2" />
-            <h2>Pro...</h2>
-          </div>
-          <div className={styles.embla__slide} onClick={() => emblaApi && emblaApi.scrollTo(2)}>
-            <img src="assets/image/image3.jpg" alt="Slide 3" />
-            <h2>Pro...</h2>
-          </div>
+    <div className="embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {slides.map((slide, index) => (
+            <div className="embla__slide" key={index}>
+              <img src={slide.src} alt={`Slide ${index}`} />
+            </div>
+          ))}
         </div>
       </div>
     </div>
