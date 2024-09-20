@@ -23,5 +23,34 @@
 
 .embla__slide img {
   max-width: 100%;
-  height: auto;
+  max-height: 100vh;
+}
+
+/* Кнопки "Назад" и "Вперед" */
+.embla__button {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background-color: rgba(0, 0, 0, 0.5);
+color: white;
+border: none;
+font-size: 2rem;
+padding: 10px;
+cursor: pointer;
+opacity: 0; /* По умолчанию скрыты */
+transition: opacity 0.3s;
+}
+
+.embla__button_prev {
+left: 10px;
+}
+
+.embla__button_next {
+right: 10px;
+}
+
+/* Кнопки показываются, если состояние showPrev или showNext true */
+.embla__button_prev,
+.embla__button_next {
+opacity: 1;
 }

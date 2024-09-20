@@ -1,0 +1,58 @@
+
+.photo_grid {
+    column-count: 5; /* Количество колонок */
+    column-gap: 10px; /* Отступ между колонками */
+  }
+  
+  .photo_grid img {
+    width: 100%;
+    margin-bottom: 10px; /* Отступ между изображениями */
+  }
+  
+  
+  .slider_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .close_slider {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px; /* Укажите ширину кнопки */
+    height: 30px; /* Укажите высоту кнопки */
+    background-color: transparent; /* Сделаем фон прозрачным */
+    border: none;
+    cursor: pointer;
+}
+
+.close_slider::before,
+.close_slider::after {
+    content: '';
+    position: absolute;
+    width: 2px; /* Толщина линий */
+    height: 100%; /* Высота линий */
+    background-color: #fff; /* Цвет линий */
+    top: 50%; /* Центр по вертикали */
+    left: 50%; /* Центр по горизонтали */
+}
+
+.close_slider::before {
+    transform: translate(-50%, -50%) rotate(45deg); /* Первая линия */
+}
+
+.close_slider::after {
+    transform: translate(-50%, -50%) rotate(-45deg); /* Вторая линия */
+}
+  
+
+
+
+

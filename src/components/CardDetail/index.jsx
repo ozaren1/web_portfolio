@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import MainCarousel from '../MainCarousel';
+import styles from './CardDetail.module.scss';
 
-
+console.log(styles)
 const photos = [
     { id: 1, src: '/assets/image/image1.jpg' },
     { id: 2, src: '/assets/image/image2.jpg' },
@@ -33,7 +34,7 @@ const photos = [
     return (
     
         <div>
-        <div className="photo-grid">
+        <div className={styles.photo_grid}>
           {photos.map((photo, index) => (
             <img
               key={photo.id}
@@ -47,8 +48,8 @@ const photos = [
   
         {/* Если слайдер открыт, отображаем компонент EmblaCarousel */}
         {isSliderOpen && (
-          <div className="slider-overlay">
-            <button className="close-slider" onClick={closeSlider}>Закрыть</button>
+          <div className={styles.slider_overlay}>
+            <button className={styles.close_slider} onClick={closeSlider}></button>
             <MainCarousel slides={photos} initialIndex={currentIndex} />
           </div>
         )}
