@@ -18,9 +18,6 @@ function Header() {
           <li><Link to='/contact' onClick={()=>handleClick('contact')} className={isActive === 'contact' ? styles.active : ''}>contact </Link></li>
       </ul>
       </header>
-      <Routes>
-        <Route path='/portfolio' element={<Portfolio />}/>
-      </Routes>
     </>
   );
 }

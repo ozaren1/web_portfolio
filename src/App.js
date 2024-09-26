@@ -1,15 +1,19 @@
 import React from 'react';
 import Container from './components/Container';
-import Header from './components/Header';
 import Portfolio from './components/Portfolio';
-import CardDetail from './components/CardDetail';
+import {Route, Routes} from "react-router-dom";
+import MainPage from "./pages/Main";
+import CardDetail from "./components/CardDetail";
 
 function App() {
   return (
     <>
     <Container>
-      <Header/>
-      <CardDetail/>
+      <Routes>
+        <Route path="/" element={<MainPage/>} />
+        <Route path='/portfolio' element={<Portfolio />}/>
+        <Route path='/portfolio/:id' element={<CardDetail/>} />
+      </Routes>
     </Container>
    </>
   );

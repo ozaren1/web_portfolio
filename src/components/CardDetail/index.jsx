@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import MainCarousel from '../MainCarousel';
 import styles from './CardDetail.module.scss';
+import {useParams} from "react-router-dom";
+import data from './data'
 
 console.log(styles)
 const photos = [
@@ -21,7 +23,10 @@ const photos = [
   function CardDetail() {
     const [isSliderOpen, setIsSliderOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
-  
+    const {id} = useParams();
+    const [pageData, setPageData] = useState({});
+
+
     const openSlider = (index) => {
       setCurrentIndex(index);
       setIsSliderOpen(true);
@@ -30,10 +35,17 @@ const photos = [
     const closeSlider = () => {
       setIsSliderOpen(false);
     };
-  
-    return (
+
+      useEffect(() => {
+          const filteredData = data.filter((item) => item.id === id);
+          setPageData(filteredData[0]);
+      }, [data, id]);
+
+      return (
     
-        <div>
+        <>
+            <h1>{pageData.title}</h1>
+            <p>{pageData.description}</p>
         <div className={styles.photo_grid}>
           {photos.map((photo, index) => (
             <img
@@ -53,7 +65,7 @@ const photos = [
             <MainCarousel slides={photos} initialIndex={currentIndex} />
           </div>
         )}
-      </div>
+      </>
      
     );
    
