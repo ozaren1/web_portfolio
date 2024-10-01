@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.scss';
+import Container from '../Container';
 import {Routes, Route, Link} from 'react-router-dom'
-import Portfolio from '../Portfolio';
 //import Contact from '../Contact';
 
 function Header() {
@@ -11,13 +11,15 @@ function Header() {
   }
   return (
     <>
-      <header className={styles.header}>
+    <Container>
+    <header className={styles.header}>
       <ul>
           <li><Link to='/portfolio' onClick={()=>handleClick('portfolio')} className={isActive === 'portfolio' ? styles.active : ''}>portfolio</Link></li>
           <li className={styles.logo}><Link to='/' onClick={()=>handleClick('home')} className={isActive === 'home' && ''}>Merkulova Daria</Link></li>
           <li><Link to='/contact' onClick={()=>handleClick('contact')} className={isActive === 'contact' ? styles.active : ''}>contact </Link></li>
       </ul>
       </header>
+    </Container>
     </>
   );
 }

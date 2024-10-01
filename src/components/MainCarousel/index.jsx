@@ -1,68 +1,50 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import styles from'./MainCarousel.module.scss'; // Импортируем стили
+import { Autoplay } from 'embla-carousel-autoplay';
+import styles from './MainCarousel.module.scss'; // Добавим стили для анимации
 
-const MainCarousel = ({ slides, initialIndex }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, startIndex: initialIndex });
-  const [showPrev, setShowPrev] = useState(false); // Для показа кнопки "Назад"
-  const [showNext, setShowNext] = useState(false); // Для показа кнопки "Вперёд"
+const MainCarousel = ({ slides }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Функция для прокрутки назад
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  // Функция для прокрутки вперед
+  // Обработчик для перехода на следующий слайд
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
+  // Устанавливаем автоматическое перелистывание раз в 10 секунд
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scrollNext();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [scrollNext]);
+
+  // Обновляем текущий индекс при изменении слайда
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCurrentIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.scrollTo(initialIndex, true); // Переход на начальный слайд
+      emblaApi.on('select', onSelect);
     }
-  }, [emblaApi, initialIndex]);
-
-  // Логика для показа кнопок в зависимости от положения мыши
-  const handleMouseMove = (e) => {
-    const screenWidth = window.innerWidth;
-    const mouseX = e.clientX;
-
-    if (mouseX < screenWidth / 3) {
-      setShowPrev(true);
-      setShowNext(false);
-    } else if (mouseX > (2 * screenWidth) / 3) {
-      setShowNext(true);
-      setShowPrev(false);
-    } else {
-      setShowPrev(false);
-      setShowNext(false);
-    }
-  };
+  }, [emblaApi, onSelect]);
 
   return (
-    <div className={styles.embla} onMouseMove={handleMouseMove}>
-      <div className={styles.embla__viewport} ref={emblaRef}>
+    <div className={styles.slider}>
+      <div className={styles.embla} ref={emblaRef}>
         <div className={styles.embla__container}>
           {slides.map((slide, index) => (
-            <div className={styles.embla__slide} key={index}>
-              <img src={slide.src} alt={`Slide ${index}`} />
-            </div>
+            <div className={`${styles.embla__slide} ${index === currentIndex ? styles.active : ''}`} key={index}>
+            <img src={slide} alt={`Slide ${index + 1}`} />
+          </div>
           ))}
         </div>
       </div>
-
-      {/* Кнопки для прокрутки */}
-      {showPrev && (
-        <button className={`${styles.embla__button} ${styles.embla__button_prev}`} onClick={scrollPrev}>
-          ←
-        </button>
-      )}
-      {showNext && (
-        <button className={`${styles.embla__button} ${styles.embla__button_next}`} onClick={scrollNext}>
-          →
-        </button>
-      )}
+      <button  className={`${styles.embla__button} ${styles.embla__buttonPrev}`} onClick={() => emblaApi.scrollPrev()}>Prev</button>
+      <button  className={`${styles.embla__button} ${styles.embla__buttonNext}`} onClick={scrollNext}>Next</button>
     </div>
   );
 };

@@ -1,56 +1,47 @@
-.embla {
-  position: relative;
-  max-width: 800px;
-  width: 100%;
-  overflow: hidden;
-}
-
-.embla__viewport {
-  display: flex;
-}
-
-.embla__container {
-  display: flex;
-  transition: transform 0.3s ease;
-}
-
-.embla__slide {
-  flex: 0 0 100%;
-  margin-right: 10px;
-  display: flex;
-  justify-content: center;
-}
-
-.embla__slide img {
-  max-width: 100%;
-  max-height: 100vh;
-}
-
-/* Кнопки "Назад" и "Вперед" */
-.embla__button {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-background-color: rgba(0, 0, 0, 0.5);
-color: white;
-border: none;
-font-size: 2rem;
-padding: 10px;
-cursor: pointer;
-opacity: 0; /* По умолчанию скрыты */
-transition: opacity 0.3s;
-}
-
-.embla__button_prev {
-left: 10px;
-}
-
-.embla__button_next {
-right: 10px;
-}
-
-/* Кнопки показываются, если состояние showPrev или showNext true */
-.embla__button_prev,
-.embla__button_next {
-opacity: 1;
-}
+.slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .embla__container {
+    display: flex;
+    transition: transform 0.4s ease;
+  }
+  
+  .embla__slide {
+    position: relative;
+    min-width: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+  }
+  
+  .embla__slide.active {
+    opacity: 1;
+  }
+  
+  .embla__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .embla__button--prev {
+    left: 10px;
+  }
+  
+  .embla__button--next {
+    right: 10px;
+  }
+  
