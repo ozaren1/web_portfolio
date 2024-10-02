@@ -6,6 +6,7 @@ import MainPage from "./pages/Main";
 import CardDetail from "./components/CardDetail";
 import Header from './components/Header';
 import Contact from './pages/Contact';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/contact' element={<Contact />}/>
         <Route path='/portfolio/:id' element={<CardDetail/>} />
       </Routes>
+      <Footer/>
    </>
   );
  

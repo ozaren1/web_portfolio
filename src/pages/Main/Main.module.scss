@@ -1,7 +1,31 @@
-.main{
-    height: calc(100vh - 85px);
-    background-image: url(../../../public/assets/image/sdsd.jpg);
-    color: white;
-    background-repeat: no-repeat;
-    background-size: cover;
+.about_me{
+    padding: 100px 0;
+    font-family: "Kanit", system-ui;
+    font-weight: 400;
+    background-color: white;
+    position: relative;
+    color: #020202;
+    h2{
+        margin: 0 0 0 0;
+        padding: 0 0 20px 0;
+        font-size: 2em;
+    }
+    .wrapper{
+        display: flex;
+        gap: 100px;
+        .left{
+            flex-basis: 55%;
+        }
+        .right{
+            flex-basis: 45%;
+            img{
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+        .description{
+            font-size: 20px;
+        }
+    }
 }

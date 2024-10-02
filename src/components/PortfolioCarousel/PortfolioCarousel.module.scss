@@ -4,6 +4,9 @@
   width: 100%;
   overflow: hidden;
 }
+.hidden {
+  visibility: hidden; /* Скрываем слайдер до полной загрузки */
+}
 
 .embla__viewport {
   display: flex;

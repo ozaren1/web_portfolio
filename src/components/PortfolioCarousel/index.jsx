@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import styles from'./PortfolioCarousel.module.scss'; // Импортируем стили
+import styles from './PortfolioCarousel.module.scss'; // Импортируем стили
 
 const PortfolioCarousel = ({ slides, initialIndex }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, startIndex: initialIndex });
-  const [showPrev, setShowPrev] = useState(false); // Для показа кнопки "Назад"
-  const [showNext, setShowNext] = useState(false); // Для показа кнопки "Вперёд"
+  const [canScrollPrev, setCanScrollPrev] = useState(false); // Для отслеживания возможности скролла назад
+  const [canScrollNext, setCanScrollNext] = useState(false); // Для отслеживания возможности скролла вперёд
 
   // Функция для прокрутки назад
   const scrollPrev = useCallback(() => {
@@ -17,31 +17,23 @@ const PortfolioCarousel = ({ slides, initialIndex }) => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
+  // Обновление состояния кнопок
+  const updateButtons = useCallback(() => {
+    if (!emblaApi) return;
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.scrollTo(initialIndex, true); // Переход на начальный слайд
+      emblaApi.scrollTo(initialIndex, false); // Переход на начальный слайд без анимации
+      emblaApi.on('select', updateButtons);  // Обновляем кнопки при изменении слайда
+      updateButtons(); // Обновляем кнопки при инициализации
     }
-  }, [emblaApi, initialIndex]);
-
-  // Логика для показа кнопок в зависимости от положения мыши
-  const handleMouseMove = (e) => {
-    const screenWidth = window.innerWidth;
-    const mouseX = e.clientX;
-
-    if (mouseX < screenWidth / 3) {
-      setShowPrev(true);
-      setShowNext(false);
-    } else if (mouseX > (2 * screenWidth) / 3) {
-      setShowNext(true);
-      setShowPrev(false);
-    } else {
-      setShowPrev(false);
-      setShowNext(false);
-    }
-  };
+  }, [emblaApi, initialIndex, updateButtons]);
 
   return (
-    <div className={styles.embla} onMouseMove={handleMouseMove}>
+    <div className={styles.embla}>
       <div className={styles.embla__viewport} ref={emblaRef}>
         <div className={styles.embla__container}>
           {slides.map((slide, index) => (
@@ -53,12 +45,12 @@ const PortfolioCarousel = ({ slides, initialIndex }) => {
       </div>
 
       {/* Кнопки для прокрутки */}
-      {showPrev && (
+      {canScrollPrev && (
         <button className={`${styles.embla__button} ${styles.embla__button_prev}`} onClick={scrollPrev}>
           ←
         </button>
       )}
-      {showNext && (
+      {canScrollNext && (
         <button className={`${styles.embla__button} ${styles.embla__button_next}`} onClick={scrollNext}>
           →
         </button>

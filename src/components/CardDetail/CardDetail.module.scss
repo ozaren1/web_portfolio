@@ -1,15 +1,34 @@
 
 .photo_grid {
-    column-count: 5; /* Количество колонок */
-    column-gap: 10px; /* Отступ между колонками */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 260px; /* Каждая новая строка будет высотой 200px */
+ /* Повторяет строки по 200px, пока есть место */
+    gap: 20px;
+    img {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      transition: 0.5s ease-in-out;
+      object-fit: cover;
+      border-radius: 3px;
+      &:hover{
+        transform: scale(1.05);
+      }
+    }
+    
   }
   
-  .photo_grid img {
-    width: 100%;
-    margin-bottom: 10px; /* Отступ между изображениями */
-  }
+
   
-  
+
+
+
+
+
+
+
+
   .slider_overlay {
     position: fixed;
     top: 0;
